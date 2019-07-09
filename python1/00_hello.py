@@ -1,2 +1,2 @@
 # Print "Hello, World!" to your terminal
-print "Hello, World!"
+print("Hello, World!")
