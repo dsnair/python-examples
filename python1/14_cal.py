@@ -22,3 +22,25 @@ and does the following:
 import sys
 import calendar
 from datetime import datetime
+
+year = input("Enter year: ") or datetime.now().year
+try:
+  year = int(year)
+except ValueError:
+  print("Please enter a valid year.")
+  sys.exit()
+
+month = input("Enter month: ") or datetime.now().month
+try:
+  if (int(month) in range(1, 12)):
+    month = int(month)
+  if (int(month) not in range(1, 12)):
+    print("Please enter a valid month between 1 to 12.")
+    sys.exit()
+except ValueError:
+  print("Please enter a valid month between 1 to 12.")
+  sys.exit()
+
+c = calendar.TextCalendar()
+cal = c.formatmonth(year, month)
+print(cal)
