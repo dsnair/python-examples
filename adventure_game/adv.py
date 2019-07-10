@@ -1,3 +1,5 @@
+import sys
+
 from room import Room
 from player import Player
 
@@ -43,8 +45,12 @@ print(player.room.name)
 print(player.room.description)
 
 # Wait for user input and decide what to do
+command = input("Enter direction: ")
 
-# If the user enters a cardinal direction, attempt to move to the room there.
-# Print an error message if the movement isn't allowed.
+# 1. If the user enters a cardinal direction, attempt to move to the room there
+# 2. Print an error message if the movement isn't allowed
 
-# If the user enters "q", quit the game.
+# 3. If the user enters "q", quit the game
+if (command == "q"):
+    print("Goodbye!")
+    sys.exit()
