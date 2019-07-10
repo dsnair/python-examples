@@ -48,7 +48,10 @@ print(player.room.description)
 command = input("Enter direction: ")
 
 # 1. If the user enters a cardinal direction, attempt to move to the room there
+
 # 2. Print an error message if the movement isn't allowed
+if (command not in ["n", "s", "w", "e", "q"]):
+    print("Please enter a valid command: n, s, w, e, q.")
 
 # 3. If the user enters "q", quit the game
 if (command == "q"):
