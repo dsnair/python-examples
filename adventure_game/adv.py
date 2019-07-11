@@ -41,14 +41,14 @@ player = Player(room["outside"])
 # 2. Wait for user input and decide what to do
 command = input("Enter direction: ")
 
-# If the user enters a cardinal direction, attempt to move to the room there
 while(command != "q"):
     # Print an error message if the movement isn't allowed
     if command not in ["n", "s", "w", "e", "q"]:
         print("Please enter a valid command: n, s, w, e, q.\n")
-    
+
+    # If the user enters a cardinal direction, attempt to move to the room there
     if command in ["n", "s", "w", "e"]:
-        if hasattr(player.current_room, f"{command}_to"):
+        if getattr(player.current_room, f"{command}_to"):
             player.current_room = getattr(player.current_room, f"{command}_to")
             print(f"{player.current_room.name}: {player.current_room.description}\n") 
         else:
