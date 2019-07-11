@@ -56,9 +56,9 @@ player.take_item()
 command = input("Enter direction: ")
 
 while(command != "q"):
-    # Print an error message if the movement isn't allowed
-    if command not in ["n", "s", "w", "e", "q"]:
-        print("Please enter a valid command: n, s, w, e, q.\n")
+    # Print an error message for invalid action
+    if not(command in ["n", "s", "w", "e", "q"] or (len(command.split()) == 2 and (command.startswith("take") or command.startswith("drop")))):
+        print("Please enter a valid command.\n")
 
     # If the user enters a cardinal direction, attempt to move to the room there
     if command in ["n", "s", "w", "e"]:
