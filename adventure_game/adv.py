@@ -2,6 +2,7 @@ import sys
 
 from room import Room
 from player import Player
+from item import Item
 
 # Declare all the rooms
 room = {
@@ -35,6 +36,18 @@ room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
 
+# Declare all the items
+boots = Item("Boots", "Run with lightning speed!")
+flashlight = Item("Flashlight", "Guide your way out of the darkness.")
+sword = Item("Sword", "Safety first!")
+
+room["outside"].add_item(boots.name)
+room["treasure"].add_item(boots.name)
+room["foyer"].add_item(boots.name, flashlight.name, sword.name)
+room["narrow"].add_item(flashlight.name, sword.name)
+room["overlook"].add_item(flashlight.name)
+
+
 # 1. Make a new player object that is currently in the 'outside' room
 player = Player(room["outside"])
 
@@ -50,7 +63,8 @@ while(command != "q"):
     if command in ["n", "s", "w", "e"]:
         if getattr(player.current_room, f"{command}_to"):
             player.current_room = getattr(player.current_room, f"{command}_to")
-            print(f"{player.current_room.name}: {player.current_room.description}\n") 
+            print("🏠  Room: {} - {}".format(player.current_room.name, player.current_room.description))
+            print("📦  Room Items: {}\n".format(player.current_room.items)) 
         else:
             print("You can't go that way.\n")
 
@@ -58,5 +72,5 @@ while(command != "q"):
 
 # If the user enters "q", quit the game
 if command == "q":
-    print("Goodbye!")
+    print("Goodbye! 👋")
     sys.exit()

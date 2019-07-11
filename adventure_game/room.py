@@ -12,4 +12,7 @@ class Room:
     # allows calling Room.name & Room.description
     def __init__(self, name, description):
         self.name = name
-        self.description = description        
+        self.description = description
+
+    def add_item(self, *args):
+        self.items = args
