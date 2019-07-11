@@ -35,25 +35,49 @@ room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
 
-# Make a new player object that is currently in the 'outside' room
+# 1. Make a new player object that is currently in the 'outside' room
 player = Player(room["outside"])
 
-# Print the current room name
-print(player.room.name)
-
-# Print the current description (the textwrap module might be useful here)
-print(player.room.description)
-
-# Wait for user input and decide what to do
+# 2. Wait for user input and decide what to do
 command = input("Enter direction: ")
 
-# 1. If the user enters a cardinal direction, attempt to move to the room there
+ # If the user enters a cardinal direction, attempt to move to the room there
+while(command != "q"):
+    # Print an error message if the movement isn't allowed
+    if command not in ["n", "s", "w", "e", "q"]:
+        print("Please enter a valid command: n, s, w, e, q.\n")
+    
+    if command == "n":
+        if player.current_room.n_to:
+            player.current_room = player.current_room.n_to 
+            print(f"{player.current_room.name}: {player.current_room.description}\n") 
+        else:
+            print("You can't go that way.\n")
 
-# 2. Print an error message if the movement isn't allowed
-if (command not in ["n", "s", "w", "e", "q"]):
-    print("Please enter a valid command: n, s, w, e, q.")
+    if command == "s":
+        if player.current_room.s_to:
+            player.current_room = player.current_room.s_to 
+            print(f"{player.current_room.name}: {player.current_room.description}\n") 
+        else:
+            print("You can't go that way.\n")
 
-# 3. If the user enters "q", quit the game
-if (command == "q"):
+    if command == "w":
+        if player.current_room.w_to:
+            player.current_room = player.current_room.w_to 
+            print(f"{player.current_room.name}: {player.current_room.description}\n") 
+        else:
+            print("You can't go that way.\n")
+
+    if command == "e":
+        if player.current_room.e_to:
+            player.current_room = player.current_room.e_to 
+            print(f"{player.current_room.name}: {player.current_room.description}\n") 
+        else:
+            print("You can't go that way.\n")
+
+    command = input("Enter direction: ")
+
+# If the user enters "q", quit the game
+if command == "q":
     print("Goodbye!")
     sys.exit()
