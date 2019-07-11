@@ -1,10 +1,5 @@
 # Intro to Python II
 
-## What We're Building
-[What's an Adventure Game? ![vid](https://tk-assets.lambdaschool.com/7928cdb4-b8a3-45a6-b231-5b9d1fc1e002_ScreenShot2019-03-22at5.47.28PM.png)](https://youtu.be/WaZccFqJUT8)
-
-## MVP
-
 ### Day 1 MVP
 
 * Create the REPL command parser in `adv.py` which allows the player to move to rooms
