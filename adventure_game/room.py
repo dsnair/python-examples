@@ -15,4 +15,4 @@ class Room:
         self.description = description
 
     def add_item(self, *args):
-        self.items = args
+        self.items = list(args)

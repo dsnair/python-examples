@@ -7,3 +7,6 @@ class Player:
 
     def __str__(self):
         return self.current_room
+
+    def take_item(self, *args):
+        self.items = list(args)

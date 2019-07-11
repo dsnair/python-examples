@@ -50,6 +50,7 @@ room["overlook"].add_item(flashlight.name)
 
 # 1. Make a new player object that is currently in the 'outside' room
 player = Player(room["outside"])
+player.take_item()
 
 # 2. Wait for user input and decide what to do
 command = input("Enter direction: ")
@@ -64,11 +65,12 @@ while(command != "q"):
         if getattr(player.current_room, f"{command}_to"):
             player.current_room = getattr(player.current_room, f"{command}_to")
             print("🏠  Room: {} - {}".format(player.current_room.name, player.current_room.description))
-            print("📦  Room Items: {}\n".format(player.current_room.items)) 
+            print("📦  Room Items: {}".format(player.current_room.items)) 
+            print("🛍  Player Items: {}\n".format(player.items))
         else:
             print("You can't go that way.\n")
 
-    command = input("Enter direction: ")
+    command = input("Enter action: ")
 
 # If the user enters "q", quit the game
 if command == "q":
