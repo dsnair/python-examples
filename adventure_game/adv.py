@@ -52,8 +52,12 @@ room["overlook"].add_item(flashlight.name)
 player = Player(room["outside"])
 player.take_item()
 
+print("🏠  Room: {} - {}".format(player.current_room.name, player.current_room.description))
+print("📦  Room Items: {}".format(player.current_room.items)) 
+print("🛍  Player Items: {}\n".format(player.items))
+
 # 2. Wait for user input and decide what to do
-command = input("Enter direction: ")
+command = input("Enter action: ")
 
 while(command != "q"):
     # Print an error message for invalid action
@@ -75,23 +79,28 @@ while(command != "q"):
             verb = command.split()[0]
             item = command.split()[1]
 
-            if item in player.current_room.items or item in player.items:
-                # If the player takes item, add to player and remove it from room
-                if verb == "take":
+             # If the player takes item, add to player and remove it from room
+            if verb == "take":
+                if item in player.current_room.items:
                     player.take_item(item)
                     player.current_room.items.remove(item)
+                    print("🏠  Room: {} - {}".format(player.current_room.name, player.current_room.description))
+                    print("📦  Room Items: {}".format(player.current_room.items)) 
+                    print("🛍  Player Items: {}\n".format(player.items))
+                else:
+                    print("❌  This item is not in the room.\n")
 
-                # If the player drops item, remove from player and add it to room
-                if verb == "drop":
+            # If the player drops item, remove from player and add it to room
+            if verb == "drop":
+                if item in player.items:
                     player.items.remove(item)
                     player.current_room.items.append(item)
-            
-                print("🏠  Room: {} - {}".format(player.current_room.name, player.current_room.description))
-                print("📦  Room Items: {}".format(player.current_room.items)) 
-                print("🛍  Player Items: {}\n".format(player.items))
-            else:
-                print("❌  This item is not in the room.\n")
-
+                    print("🏠  Room: {} - {}".format(player.current_room.name,player.current_room.description))
+                    print("📦  Room Items: {}".format(player.current_room.items)) 
+                    print("🛍  Player Items: {}\n".format(player.items))
+                else:
+                    print("❌  You don't have this item.\n")
+                
     command = input("Enter action: ")
 
 # If the user enters "q", quit the game
