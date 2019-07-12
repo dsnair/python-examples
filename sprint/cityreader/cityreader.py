@@ -30,7 +30,7 @@ def cityreader(cities=[]):
     record = csv.reader(f)
     next(record)  # skip 1st row
     for city in record:
-      cities.append(City(city[0], city[3], city[4]))
+      cities.append(City(city[0], float(city[3]), float(city[4])))
   return cities
 
 cityreader(cities)
