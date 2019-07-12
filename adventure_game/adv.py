@@ -1,5 +1,4 @@
 import sys
-
 from room import Room
 from player import Player
 from item import Item
@@ -48,15 +47,18 @@ room["narrow"].add_item(flashlight.name, sword.name)
 room["overlook"].add_item(flashlight.name)
 
 
-# 1. Make a new player object that is currently in the 'outside' room and holds no items
+# function for printing game specs
+def print_game():
+    print("🏠  Room: {} - {}".format(player.current_room.name, player.current_room.description))
+    print("📦  Room Items: {}".format(player.current_room.items)) 
+    print("🛍  Player Items: {}\n".format(player.items))
+
+# Make a new player object that is currently in the 'outside' room and holds no items
 player = Player(room["outside"])
 player.take_item()
+print_game()
 
-print("🏠  Room: {} - {}".format(player.current_room.name, player.current_room.description))
-print("📦  Room Items: {}".format(player.current_room.items)) 
-print("🛍  Player Items: {}\n".format(player.items))
-
-# 2. Wait for user input and decide what to do
+# Wait for user input and decide what to do
 command = input("Enter action: ")
 
 while(command != "q"):
@@ -69,9 +71,7 @@ while(command != "q"):
         if command in ["n", "s", "w", "e"]:
             if getattr(player.current_room, f"{command}_to"):
                 player.current_room = getattr(player.current_room, f"{command}_to")
-                print("🏠  Room: {} - {}".format(player.current_room.name, player.current_room.description))
-                print("📦  Room Items: {}".format(player.current_room.items)) 
-                print("🛍  Player Items: {}\n".format(player.items))
+                print_game()
             else:
                 print("🚫  You can't go that way.\n")
 
@@ -84,9 +84,7 @@ while(command != "q"):
                 if item in player.current_room.items:
                     player.take_item(item)
                     player.current_room.items.remove(item)
-                    print("🏠  Room: {} - {}".format(player.current_room.name, player.current_room.description))
-                    print("📦  Room Items: {}".format(player.current_room.items)) 
-                    print("🛍  Player Items: {}\n".format(player.items))
+                    print_game()
                 else:
                     print("❌  This item is not in the room.\n")
 
@@ -95,9 +93,7 @@ while(command != "q"):
                 if item in player.items:
                     player.items.remove(item)
                     player.current_room.items.append(item)
-                    print("🏠  Room: {} - {}".format(player.current_room.name,player.current_room.description))
-                    print("📦  Room Items: {}".format(player.current_room.items)) 
-                    print("🛍  Player Items: {}\n".format(player.items))
+                    print_game()
                 else:
                     print("❌  You don't have this item.\n")
                 
