@@ -66,7 +66,6 @@ while(command != "q"):
     if not(command in ["n", "s", "w", "e", "q"] or (len(command.split()) == 2 and (command.startswith("take") or command.startswith("drop")))):
         print("❓  Please enter a valid command.\n")
     else:
-
         # If the user enters a cardinal direction, attempt to move to the room there
         if command in ["n", "s", "w", "e"]:
             if getattr(player.current_room, f"{command}_to"):

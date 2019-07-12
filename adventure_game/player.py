@@ -4,9 +4,10 @@
 class Player:
     def __init__(self, current_room):
         self.current_room = current_room
+        self.items = []
 
     def __str__(self):
         return self.current_room
 
     def take_item(self, *args):
-        self.items = list(args)
+        self.items.extend(list(args))
