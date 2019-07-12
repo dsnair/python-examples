@@ -37,9 +37,9 @@ room['treasure'].s_to = room['narrow']
 
 
 # Declare all the items
-boots = Item("Boots", "Run with lightning speed!")
-flashlight = Item("Flashlight", "Guide your way out of the darkness.")
-sword = Item("Sword", "Safety first!")
+boots = Item("boots", "run with lightning speed!")
+flashlight = Item("flashlight", "guide your way out of the darkness.")
+sword = Item("sword", "safety first!")
 
 room["outside"].add_item(boots.name)
 room["treasure"].add_item(boots.name)
@@ -69,6 +69,24 @@ while(command != "q"):
             print("🛍  Player Items: {}\n".format(player.items))
         else:
             print("You can't go that way.\n")
+
+    if len(command.split()) == 2:
+        verb = command.split()[0]
+        item = command.split()[1]
+
+        # If the player takes item, add to player and remove it from room
+        if verb == "take":
+            player.take_item(item)
+            player.current_room.items.remove(item)
+        
+        # If the player drops item, remove from player and add it to room
+        if verb == "drop":
+            player.items.remove(item)
+            player.current_room.items.append(item)
+        
+        print("🏠  Room: {} - {}".format(player.current_room.name, player.current_room.description))
+        print("📦  Room Items: {}".format(player.current_room.items)) 
+        print("🛍  Player Items: {}\n".format(player.items))
 
     command = input("Enter action: ")
 
