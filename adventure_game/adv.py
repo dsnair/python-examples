@@ -48,7 +48,7 @@ room["narrow"].add_item(flashlight.name, sword.name)
 room["overlook"].add_item(flashlight.name)
 
 
-# 1. Make a new player object that is currently in the 'outside' room
+# 1. Make a new player object that is currently in the 'outside' room and holds no items
 player = Player(room["outside"])
 player.take_item()
 
@@ -58,35 +58,39 @@ command = input("Enter direction: ")
 while(command != "q"):
     # Print an error message for invalid action
     if not(command in ["n", "s", "w", "e", "q"] or (len(command.split()) == 2 and (command.startswith("take") or command.startswith("drop")))):
-        print("Please enter a valid command.\n")
+        print("❓  Please enter a valid command.\n")
+    else:
 
-    # If the user enters a cardinal direction, attempt to move to the room there
-    if command in ["n", "s", "w", "e"]:
-        if getattr(player.current_room, f"{command}_to"):
-            player.current_room = getattr(player.current_room, f"{command}_to")
-            print("🏠  Room: {} - {}".format(player.current_room.name, player.current_room.description))
-            print("📦  Room Items: {}".format(player.current_room.items)) 
-            print("🛍  Player Items: {}\n".format(player.items))
-        else:
-            print("You can't go that way.\n")
+        # If the user enters a cardinal direction, attempt to move to the room there
+        if command in ["n", "s", "w", "e"]:
+            if getattr(player.current_room, f"{command}_to"):
+                player.current_room = getattr(player.current_room, f"{command}_to")
+                print("🏠  Room: {} - {}".format(player.current_room.name, player.current_room.description))
+                print("📦  Room Items: {}".format(player.current_room.items)) 
+                print("🛍  Player Items: {}\n".format(player.items))
+            else:
+                print("🚫  You can't go that way.\n")
 
-    if len(command.split()) == 2:
-        verb = command.split()[0]
-        item = command.split()[1]
+        if len(command.split()) == 2:
+            verb = command.split()[0]
+            item = command.split()[1]
 
-        # If the player takes item, add to player and remove it from room
-        if verb == "take":
-            player.take_item(item)
-            player.current_room.items.remove(item)
-        
-        # If the player drops item, remove from player and add it to room
-        if verb == "drop":
-            player.items.remove(item)
-            player.current_room.items.append(item)
-        
-        print("🏠  Room: {} - {}".format(player.current_room.name, player.current_room.description))
-        print("📦  Room Items: {}".format(player.current_room.items)) 
-        print("🛍  Player Items: {}\n".format(player.items))
+            if item in player.current_room.items or item in player.items:
+                # If the player takes item, add to player and remove it from room
+                if verb == "take":
+                    player.take_item(item)
+                    player.current_room.items.remove(item)
+
+                # If the player drops item, remove from player and add it to room
+                if verb == "drop":
+                    player.items.remove(item)
+                    player.current_room.items.append(item)
+            
+                print("🏠  Room: {} - {}".format(player.current_room.name, player.current_room.description))
+                print("📦  Room Items: {}".format(player.current_room.items)) 
+                print("🛍  Player Items: {}\n".format(player.items))
+            else:
+                print("❌  This item is not in the room.\n")
 
     command = input("Enter action: ")
 
